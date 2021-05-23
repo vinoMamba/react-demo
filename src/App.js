@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 
 
 const App = () => {
@@ -8,6 +8,9 @@ const App = () => {
     }
     useEffect(() => {
         console.log('n 变化了')
+    }, [n])
+    useLayoutEffect(() => {
+        console.log('我在render 之前')
     }, [n])
     return (
         <div>
