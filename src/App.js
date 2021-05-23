@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-import useUpdate from "./useUpdate";
+import React, {useEffect, useState} from "react";
 
 
 const App = (props) => {
@@ -7,10 +6,14 @@ const App = (props) => {
     const addOne = () => {
         setN(n + 1)
     }
-    useUpdate(() => {
-        console.log('n变了')
-    }, n)
-
+    useEffect(() => {
+        const timer = setInterval(() => {
+            console.log('n 变化了')
+        }, 1000)
+        return () => {
+            window.clearInterval(timer)
+        }
+    }, [n])
     return (
         <div>
             <span>{n}</span>
