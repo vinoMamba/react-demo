@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 
 const App = () => {
     const [n, setN] = useState(0)
-    const count = useRef(0)
+    const count = useRef(0) // count = {current:0}
     const addOne = () => {
         setN(i => i + 1)
     }
