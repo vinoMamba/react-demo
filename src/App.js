@@ -1,39 +1,44 @@
-import React, {useReducer} from "react";
+import React, {createContext, useContext, useState} from "react";
 
-/**
- * useState 的复杂版
- * 事不过三，复杂的时候使用reducer
- * 例如在给表单赋值的时候可以用reducer
- */
-
-const initial = {
-    n: 0
-}
-const reducer = (state, action) => {
-    if (action.type === 'add') {
-        return {n: state.n + action.number}
-    } else if (action.type === 'multi') {
-        return {n: state.n * action.number}
-    } else {
-        throw new Error('unknown Type')
-    }
-}
+const C = createContext(null)
 
 const App = () => {
-    const [state, dispatch] = useReducer(reducer, initial)
-    const addOne = () => {
-        dispatch({type: 'add', number: 1})
-    }
-    const addTwo = () => {
-        dispatch({type: 'add', number: 2})
-    }
+    const [n, setN] = useState(0)
+    const [x, setX] = useState(0)
     return (
-        <div>
-            <span>{state.n}</span>
-            <hr/>
-            <button onClick={addOne}>+1</button>
-            <button onClick={addTwo}>+2</button>
-        </div>
+        <C.Provider value={{n, setN, x, setX}}>
+            <Father/>
+        </C.Provider>
     )
 }
+
+const Father = () => {
+    const {x, setX} = useContext(C)
+    const addOne = () => {
+        setX(x => x + 1)
+    }
+    return (
+        <>
+            <div>我是爸爸的N: {x}</div>
+            <button onClick={addOne}>爸爸+1</button>
+            <Son/>
+        </>
+    )
+}
+
+const Son = () => {
+    const {n, setN} = useContext(C)
+    const addOne = () => {
+        setN(i => i + 1)
+    }
+    return (
+        <>
+            <div>我是儿子 得到了n : {n}</div>
+            <button onClick={addOne}>+1</button>
+        </>
+
+    )
+
+}
+
 export default App
