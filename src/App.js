@@ -1,21 +1,16 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {forwardRef, useRef} from "react";
 
 const App = () => {
-    const [n, setN] = useState(0)
-    const count = useRef(0) // count = {current:0}
-    const addOne = () => {
-        setN(i => i + 1)
-    }
-    useEffect(() => {
-        count.current += 1
-        console.log(count.current)
-    })
+    const buttonRef = useRef(null)
     return (
         <div>
-            <span>{n}</span>
-            <hr/>
-            <button onClick={addOne}>+1</button>
+            <Button ref={buttonRef}/>
         </div>
     )
 }
+const Button = forwardRef((props, ref) => {
+    console.log(props)
+    console.log(ref)
+    return <button ref={ref}>按钮</button>
+})
 export default App
