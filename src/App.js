@@ -1,22 +1,39 @@
-import React, {useState} from "react";
-import useUpdate from "./useUpdate";
+import React, {memo, useCallback, useMemo, useState} from "react";
 
 
-const App = (props) => {
+const App = () => {
     const [n, setN] = useState(0)
+    const [m] = useState(0)
     const addOne = () => {
-        setN(n + 1)
+        setN(i => i + 1)
     }
-    useUpdate(() => {
-        console.log('n变了')
-    }, n)
-
+    const onClickChild = useCallback(() => {
+        console.log(m)
+    }, [m])
+    /**
+     * 等价于下面的useMemo
+     */
+    // const onClickChild = useMemo(() => {
+    //     return () => {
+    //         console.log(m)
+    //     }
+    // }, [m])
     return (
         <div>
             <span>{n}</span>
             <hr/>
             <button onClick={addOne}>+1</button>
+            <hr/>
+            <Child data={m} onClick={onClickChild}/>
         </div>
     )
 }
+const Child = memo((props) => {
+    console.log('child 执行了')
+    console.log('假设这里有大量代码')
+    return (
+        <div onClick={props.onClick}>child: {props.data}</div>
+    )
+})
+
 export default App
