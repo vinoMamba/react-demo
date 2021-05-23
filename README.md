@@ -17,3 +17,10 @@ You will also see any lint errors in the console.
 ## 自定义hooks  useUpdate
 
 -- 只在`n` 变变化的时候执行(第一次加载不算在内)
+
+## 切换分支查看其他hooks
+
+* useState
+* useReducer
+* useContext
+* useEffect
