@@ -1,16 +1,15 @@
-import React, {useState} from "react";
-import useUpdate from "./useUpdate";
+import React, {useEffect, useRef, useState} from "react";
 
-
-const App = (props) => {
+const App = () => {
     const [n, setN] = useState(0)
+    const count = useRef(0) // count = {current:0}
     const addOne = () => {
-        setN(n + 1)
+        setN(i => i + 1)
     }
-    useUpdate(() => {
-        console.log('n变了')
-    }, n)
-
+    useEffect(() => {
+        count.current += 1
+        console.log(count.current)
+    })
     return (
         <div>
             <span>{n}</span>
