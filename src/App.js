@@ -1,16 +1,17 @@
-import React, {useState} from "react";
-import useUpdate from "./useUpdate";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 
 
-const App = (props) => {
+const App = () => {
     const [n, setN] = useState(0)
     const addOne = () => {
-        setN(n + 1)
+        setN(i => i + 1)
     }
-    useUpdate(() => {
-        console.log('n变了')
-    }, n)
-
+    useEffect(() => {
+        console.log('n 变化了')
+    }, [n])
+    useLayoutEffect(() => {
+        console.log('我在render 之前')
+    }, [n])
     return (
         <div>
             <span>{n}</span>
